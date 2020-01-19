@@ -5,8 +5,11 @@ Music classification and recognition using neural netowrks.
 
 ## Dataset
 
+Dataset consists of 437 different songs collected from 8 artists. Those songs are split into 32166 lines using timestamp information of each line.
 
 ## Classifiaction
+
+The goal of classification is to predict the artist who said the input line. Dataset is filtered by the transcript of the line, because of the many repeated lines which are the part of chorus and some adlibs. Also due to labeling limitations, only lines from solo songs were used for the dataset.
 
 
 | Architecture   | Augmentations | Slice Accuracy (%) | Song Accuracy (%) |
