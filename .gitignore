@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+dataset/data/dataset_mp3_full
+dataset/data/dataset_wav_lines
+classification/models
+comparison.txt
+.idea
+

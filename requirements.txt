@@ -1,0 +1,14 @@
+beautifulsoup4==4.8.2
+efficientnet==1.0.0
+Keras==2.3.1
+keras-radam==0.15.0
+librosa==0.7.1
+matplotlib==3.1.2
+mutagen==1.43.0
+numpy==1.18.1
+opencv-python==4.1.2.30
+pandas==0.25.3
+pydub==0.23.1
+scikit-learn==0.22.1
+tensorflow-gpu==1.14.0
+tqdm==4.41.1
