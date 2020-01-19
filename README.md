@@ -11,7 +11,7 @@ Dataset consists of 437 different songs collected from 8 artists. Those songs ar
 
 The goal of classification is to predict the artist who said the input line.
 
-## [Recognition]()
+## Recognition
 
 The goal of recognition is to predict the line transcript no matter which artist said it.
 
