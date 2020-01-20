@@ -1,4 +1,4 @@
-# tranSLATor
+# tran[SLAT](https://www.urbandictionary.com/define.php?term=SLAT)or
 
 Music classification and recognition using neural netowrks.
 
