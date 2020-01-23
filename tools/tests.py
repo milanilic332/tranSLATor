@@ -10,7 +10,7 @@ def get_data(path):
     @return:                            dictionary of songs for all artists
     """
     return {artist_name: [song_name[:song_name.rfind('.')] for song_name in os.listdir(os.path.join(path, artist_name))]
-            for artist_name in os.listdir(path)}
+            for artist_name in os.listdir(path) if os.path.isdir(os.path.join(path, artist_name))}
 
 
 def test_equality(data_dir):

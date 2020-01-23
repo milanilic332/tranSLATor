@@ -30,7 +30,6 @@ def create_full_csv(data_dir, min_seconds=1, max_seconds=10, offsets=None):
                 mutagen_file = MP3(os.path.join(mp3_path, artist, song[:-3] + 'mp3'))
                 pydub_file = AudioSegment.from_mp3(os.path.join(mp3_path, artist, song[:-3] + 'mp3'))
             except IOError:
-                logging.warning('No such mp3 file in directory: {} skipped'.format(song[:-3] + 'mp3'))
                 continue
 
             with open(os.path.join(lrc_path, artist, song), 'r') as f:
@@ -43,8 +42,7 @@ def create_full_csv(data_dir, min_seconds=1, max_seconds=10, offsets=None):
                     mp3_slice = pydub_file[timestamp[0] + offsets[0]:
                                            np.min([timestamp[1] + offsets[1], int(mutagen_file.info.length * 1000)])]
 
-                    wav_filename = os.path.abspath(os.path.join(data_dir, 'dataset_wav_lines',
-                                                                f'{artist} {song[:-4]} {line_num}.wav'))
+                    wav_filename = os.path.join(data_dir, 'dataset_wav_lines', f'{artist} {song[:-4]} {line_num}.wav')
                     mp3_slice.export(wav_filename, format='wav')
 
                     if os.path.getsize(wav_filename) != 44:
