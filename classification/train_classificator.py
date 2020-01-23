@@ -20,11 +20,12 @@ from tools.cosine_annealing import CosineAnnealingScheduler
 from classification.labels import unique_labels
 
 
-def yield_data(df, batch_size, input_shape, label_dict, dataset_type, to_augment=False):
+def yield_data(df, dataset_dir, batch_size, input_shape, label_dict, dataset_type, to_augment=False):
     """Data generator
 
     @param df:                              dataframe of dataset
     @param batch_size:                      number of samples in batch
+    @param dataset_dir                      path to dataset
     @param input_shape:                     neural network input shape
     @param label_dict:                      dictionary mapping rapper names to integers
     @param dataset_type:                    either 'train' or 'val'
@@ -38,7 +39,7 @@ def yield_data(df, batch_size, input_shape, label_dict, dataset_type, to_augment
             xs = np.zeros((batch_size, *input_shape))
             ys = np.zeros((batch_size,))
             for i in range(batch_size):
-                clip, sr = lr.load(df.loc[[batch_num * batch_size + i]]['wav_filename'].values[0], sr=None)
+                clip, sr = lr.load(os.path.join(dataset_dir, df.loc[[batch_num * batch_size + i]]['wav_filename'].values[0]), sr=None)
 
                 mel = lr.feature.melspectrogram(y=clip, sr=sr)
 
@@ -86,7 +87,7 @@ def build_model(backbone_name, input_shape, n_classes):
     return final_model
 
 
-def main(train_csv, val_csv, backbone_name, input_shape, epochs, batch_size, to_augment):
+def main(train_csv, val_csv, dataset_dir, backbone_name, input_shape, epochs, batch_size, to_augment):
     """Training loop
 
     @param train_csv:                           path to train .csv file
@@ -106,10 +107,10 @@ def main(train_csv, val_csv, backbone_name, input_shape, epochs, batch_size, to_
 
     model.compile(loss='sparse_categorical_crossentropy',
                   metrics=['sparse_categorical_accuracy'],
-                  optimizer=RAdam(0.001))
+                  optimizer=RAdam(0.0005))
 
-    train_gen = yield_data(train_df, batch_size, input_shape, label_dict, 'train', to_augment)
-    val_gen = yield_data(val_df, batch_size, input_shape, label_dict, 'val')
+    train_gen = yield_data(train_df, dataset_dir, batch_size, input_shape, label_dict, 'train', to_augment)
+    val_gen = yield_data(val_df, dataset_dir, batch_size, input_shape, label_dict, 'val')
 
     es_callback = EarlyStopping(patience=100)
     mc_callback = ModelCheckpoint(f'models/{backbone_name}.h5', monitor='val_sparse_categorical_accuracy',
@@ -131,6 +132,8 @@ if __name__ == '__main__':
                         default=os.path.join('..', 'dataset', 'data', 'train_classification.csv'))
     parser.add_argument('--val_csv', type=str, help='Path to val csv',
                         default=os.path.join('..', 'dataset', 'data', 'val_classification.csv'))
+    parser.add_argument('--dataset_dir', type=str, help='Path to dataset dir',
+                        default=os.path.join('..', 'dataset'))
     parser.add_argument('--backbone_name', type=str, help='Network backbone name', default='inceptionv3')
     parser.add_argument('--input_shape', type=str, help='Input shape for network', default='(128, 256, 3)')
     parser.add_argument('--epochs', type=int, help='Number of epochs', default=200)
@@ -141,6 +144,7 @@ if __name__ == '__main__':
 
     main(train_csv=args.train_csv,
          val_csv=args.val_csv,
+         dataset_dir=args.dataset_dir,
          backbone_name=args.backbone_name,
          input_shape=eval(args.input_shape),
          epochs=args.epochs,

@@ -16,8 +16,8 @@ def main(data_dir):
     test_equality(data_dir)
     test_labels(data_dir)
     create_full_csv(data_dir)
-    create_stratified_openseq2seq_train_val_csv(data_dir, 'dataset_full.csv')
-    create_stratified_classification_train_val_csv(data_dir, 'dataset_full.csv')
+    create_stratified_openseq2seq_train_val_csv(data_dir, 'dataset_all.csv')
+    create_stratified_classification_train_val_csv(data_dir, 'dataset_all.csv')
     
 
 if __name__ == '__main__':
