@@ -22,7 +22,7 @@ def main(data_dir):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Getting the dataset directory')
-    parser.add_argument('--data_dir', help='Directory to datasets', default='data')
+    parser.add_argument('--data_dir', help='Directory to datasets', default='sample_data')
     args = parser.parse_args()
 
     main(data_dir=args.data_dir)

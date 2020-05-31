@@ -81,7 +81,7 @@ def main(val_csv, input_shape, model_paths):
         val_song_df = val_df[val_df['song_name'] == song].reset_index(drop=True)
         for i, row in val_song_df.iterrows():
             wav_path = row['wav_filename']
-            slice, sr = lr.load(wav_path, sr=None)
+            slice, sr = lr.load(os.path.join('..', 'dataset', wav_path), sr=None)
             mel = lr.power_to_db(lr.feature.melspectrogram(y=slice, sr=sr), ref=np.max)
 
             x = np.expand_dims(cv2.resize(np.dstack([mel, mel, mel]), (input_shape[1], input_shape[0])), 0) / 255.
@@ -99,7 +99,7 @@ def main(val_csv, input_shape, model_paths):
 
 
 if __name__ == '__main__':
-    main(val_csv=os.path.join('..', 'dataset', 'data', 'val_classification.csv'),
+    main(val_csv=os.path.join('..', 'dataset', 'sample_data', 'val_classification.csv'),
          input_shape=(128, 256, 3),
          model_paths=[
                       os.path.join('models', 'mobilenetv2.h5'),
