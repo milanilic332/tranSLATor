@@ -26,11 +26,11 @@ Four different CNNs were evaluated with the same hyperparameter settings and res
 
 | Architecture      | Augmentations | Slice Accuracy | Song Accuracy* |
 |-------------------|---------------|----------------|---------------|
-| MobileNetV2       | SpecAugment   | 86.93          | **1.0**           |
-| InceptionV3       | SpecAugment   | 88.17          | **1.0**           |
-| Resnet50V2        | SpecAugment   | 89.27          | **1.0**           |
-| DenseNet121       | SpecAugment   | **89.62**          | 97.78         |
-| Ensemble (4 nets) | -             | **91.87**          | **1.0**           |
+| MobileNetV2       | SpecAugment   | 86.93%          | **100%**           |
+| InceptionV3       | SpecAugment   | 88.17%          | **100%**           |
+| Resnet50V2        | SpecAugment   | 89.27%          | **100%**           |
+| DenseNet121       | SpecAugment   | **89.62%**          | 97.78%         |
+| Ensemble (4 nets) | -             | **91.87%**          | **100%**           |
 
 Song Accuracy* is calculated by getting the majority vote of predictions for lines in the song.
 
