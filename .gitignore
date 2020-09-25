@@ -128,9 +128,17 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-dataset/data/
+dataset/train_val_data/
+!dataset/train_val_data/.gitkeep
+
 dataset/sample_data/
-classification/models/*.h5
+
+dataset/test_data/
+!dataset/test_data/.gitkeep
+
+classification/models/
+!classification/models/.gitkeep
+
 comparison.txt
 .idea
 

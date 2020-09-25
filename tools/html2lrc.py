@@ -40,7 +40,7 @@ def html2lrc(data_dir):
             with open(os.path.join(html_path, artist, song), 'r') as f:
                 soup = BeautifulSoup(f.read(), 'html.parser')
 
-            timestamps = [link.get('data-milliseconds') for link in soup.find_all('a')]
+            timestamps = [link.get('train_val_data-milliseconds') for link in soup.find_all('a')]
             timestamps = [[timestamps[i], timestamps[i + 1]] for i in range(len(timestamps) - 1)] + \
                          [[timestamps[-1], int(mp3_file.info.length * 1000)]]
 

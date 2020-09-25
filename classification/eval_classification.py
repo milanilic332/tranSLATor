@@ -12,6 +12,7 @@ from collections import Counter
 from tqdm import tqdm
 
 from classification.labels import unique_labels
+from tools.confusion_matrix_sk import plot_confusion_matrix
 
 
 def mode(lst):
@@ -40,14 +41,19 @@ def calculate_acc(y_trues, y_preds):
     print(f'Song accuracy: {np.round(song_acc, 4)}')
 
 
-def conf_matrix(y_trues, y_preds):
+def conf_matrix(y_trues, y_preds, classes):
     """Prints confusion matrix
 
     @param y_trues:                             true values
     @param y_preds:                             predicted values
     """
-    print(confusion_matrix(reduce(lambda x, v: x + v, y_trues.values(), []),
-                           reduce(lambda x, v: x + v, y_preds.values(), [])))
+    cm = confusion_matrix(reduce(lambda x, v: x + v, y_trues.values(), []),
+                          reduce(lambda x, v: x + v, y_preds.values(), []))
+
+    plot_confusion_matrix(cm=cm,
+                          classes=classes,
+                          normalize=True,
+                          title='Confusion matrix')
 
 
 def report(y_trues, y_preds):
@@ -93,13 +99,15 @@ def main(val_csv, input_shape, model_paths):
             y_trues[song].append(y)
             y_preds[song].append(p)
 
+    id_class = {v: k[2:-2] for k, v in label_dict.items()}
+
     calculate_acc(y_trues, y_preds)
-    conf_matrix(y_trues, y_preds)
+    conf_matrix(y_trues, y_preds, [id_class[i] for i in range(len(id_class))])
     report(y_trues, y_preds)
 
 
 if __name__ == '__main__':
-    main(val_csv=os.path.join('..', 'dataset', 'sample_data', 'val_classification.csv'),
+    main(val_csv=os.path.join('..', 'dataset', 'test_data', 'dataset_all.csv'),
          input_shape=(128, 256, 3),
          model_paths=[
                       os.path.join('models', 'mobilenetv2.h5'),

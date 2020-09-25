@@ -129,9 +129,9 @@ def main(train_csv, val_csv, dataset_dir, backbone_name, input_shape, epochs, ba
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Training hyperparams')
     parser.add_argument('--train_csv', type=str, help='Path to train csv',
-                        default=os.path.join('..', 'dataset', 'data', 'train_classification.csv'))
+                        default=os.path.join('..', 'dataset', 'train_val_data', 'train_classification.csv'))
     parser.add_argument('--val_csv', type=str, help='Path to val csv',
-                        default=os.path.join('..', 'dataset', 'data', 'val_classification.csv'))
+                        default=os.path.join('..', 'dataset', 'train_val_data', 'val_classification.csv'))
     parser.add_argument('--dataset_dir', type=str, help='Path to dataset dir',
                         default=os.path.join('..', 'dataset'))
     parser.add_argument('--backbone_name', type=str, help='Network backbone name', default='inceptionv3')

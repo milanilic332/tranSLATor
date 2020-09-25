@@ -47,5 +47,5 @@ def main(train_csv, val_csv):
 
 
 if __name__ == '__main__':
-    main(train_csv=os.path.join('..', 'dataset', 'data', 'train_classification.csv'),
-         val_csv=os.path.join('..', 'dataset', 'data', 'val_classification.csv'))
+    main(train_csv=os.path.join('..', 'dataset', 'train_val_data', 'train_classification.csv'),
+         val_csv=os.path.join('..', 'dataset', 'train_val_data', 'val_classification.csv'))
