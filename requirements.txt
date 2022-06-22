@@ -5,7 +5,7 @@ keras-radam==0.15.0
 librosa==0.7.1
 matplotlib==3.1.2
 mutagen==1.43.0
-numpy==1.18.1
+numpy==1.22.0
 opencv-python==4.1.2.30
 pandas==0.25.3
 pydub==0.23.1
